@@ -4149,6 +4149,9 @@ elif test -d ${JAVA_HOME}/include ; then
         if test -d ${JAVA_HOME}/include/bsd ; then
                 JAVA_INCLUDES="$JAVA_INCLUDES -I${JAVA_HOME}/include/bsd"
         fi
+        if test -d ${JAVA_HOME}/include/darwin ; then
+                JAVA_INCLUDES="$JAVA_INCLUDES -I${JAVA_HOME}/include/darwin"
+        fi
 elif test -d ${JAVA_HOME}/Headers; then
 	JAVA_INCLUDES=-I${JAVA_HOME}/Headers
 else
@@ -4849,6 +4852,13 @@ for MPATH in /usr /usr/local /usr/local/ImageMagick /usr/local/ImageMagick-${VER
 		MAGICK_LIB_PATH=${MPATH}/lib
 		MAGICK_LIBS="-L${MPATH}/lib -lMagick"
 		MAGICK_INCLUDES=-I${MPATH}/include/ImageMagick
+		MAGICK_REALHOME=${MPATH}
+	fi
+        # Location for ImageMagick@6 grom homebrew on a Mac
+        if  test -f ${MPATH}/include/ImageMagick-6/magick/api.h  ; then
+		MAGICK_LIB_PATH=${MPATH}/lib
+		MAGICK_LIBS="-L${MPATH}/lib -lMagick"
+		MAGICK_INCLUDES=-I${MPATH}/include/ImageMagick-6
 		MAGICK_REALHOME=${MPATH}
 	fi
 done
